@@ -1,0 +1,43 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+    <div class="card table-container">
+       <a href="/instructors/create">Novo</a>
+       <table width='100%'>
+           <thead>
+               <tr>
+                   <th>Instructor</th>
+                   <th>Atendimento</th>
+                   <th>Ação</th>
+               </tr>
+           </thead>
+           <tbody>
+               {% for instructor in instructors %}
+                <tr class="lines">
+                   <td>
+                       <span style="background-image: url({{instructor.avatar_url}})"></span>
+                       {{instructor.name}}</td>
+                   <td id="{{instructor.id}}">{{instructor.services}}</td>
+                   <td><a href="/instructors/{{instructor.id}}">Ver</a></td>
+               </tr>
+               {% endfor %}
+              
+               
+           </tbody>
+       </table>
+    </div>
+    <script>
+        const trs = document.querySelectorAll('.lines')
+        let id = 0
+        for (tr of trs) {
+            id = id + 1
+            let elements =  document.getElementById(id).textContent.split(',')
+            document.getElementById(id).innerHTML = ""
+            for (element of elements){
+                document.getElementById(id).innerHTML += ` <span>${element}</span>`
+            }
+
+        }
+    </script>
+{% endblock content %}
+
